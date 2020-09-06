@@ -1,0 +1,38 @@
+<div class="container">
+    <br />
+    <div class="row">
+        <div class="col-md-5">
+            <mat-form-field class="container-fluid" appearance="fill">
+                <mat-label>Enter Long Url</mat-label>
+                <textarea matInput 
+                    cdkTextareaAutosize 
+                    #autosize="cdkTextareaAutosize" 
+                    cdkAutosizeMinRows="4"
+                    [(ngModel)]="longUrl">
+                </textarea>
+            </mat-form-field>
+        </div>
+        <div class="col-md-2">
+            <div class="d-flex justify-content-center">
+                <button mat-raised-button color="primary" (click)="getShortUrl()">
+                    <mat-icon aria-hidden="false" aria-label="refresh" inline="true">refresh</mat-icon>
+                    Convert
+                </button>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <mat-form-field class="container-fluid" appearance="fill">
+                <mat-label>Short Url</mat-label>
+                <mat-icon [cdkCopyToClipboard]="shortUrl$ | async" class="top-right" *ngIf="shortUrl$ | async">file_copy</mat-icon>
+                <textarea matInput 
+                    cdkTextareaAutosize 
+                    #autosize="cdkTextareaAutosize" 
+                    cdkAutosizeMinRows="4"
+                    >
+                    {{ shortUrl$ | async }}
+                </textarea>
+            </mat-form-field>
+        </div>
+    </div>
+
+</div>
