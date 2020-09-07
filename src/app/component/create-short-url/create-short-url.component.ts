@@ -3,6 +3,9 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/operators';
 import { UrlService } from 'src/app/service/url.service';
 import { Observable } from 'rxjs';
+import { AppError } from 'src/app/model/error';
+import { FormControl } from '@angular/forms';
+import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-create-short-url',
@@ -11,8 +14,9 @@ import { Observable } from 'rxjs';
 })
 export class CreateShortUrlComponent implements OnInit {
 
-  longUrl: string;
+  longUrl = new FormControl('');
   shortUrl$: Observable<string>;
+  errorMessage: string;
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
@@ -27,9 +31,15 @@ export class CreateShortUrlComponent implements OnInit {
 
   ngOnInit(): void {
     this.shortUrl$ = this.urlService.shortUrl$;
+    this.urlService.error$.subscribe(error => {
+      if (!!error){
+        this.errorMessage = error.errorMessage;
+        this.longUrl.setErrors( { incorrect: true});
+      }
+    });
   }
 
   getShortUrl(): void{
-    this.urlService.getShortUrl(this.longUrl);
+    this.urlService.getShortUrl(this.longUrl.value);
   }
 }

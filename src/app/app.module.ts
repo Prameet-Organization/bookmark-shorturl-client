@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatButtonModule } from '@angular/material/button';
@@ -44,7 +44,8 @@ import { UrlService } from './service/url.service';
     MatInputModule,
     MatIconModule,
     ClipboardModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   providers: [
     UrlService,
