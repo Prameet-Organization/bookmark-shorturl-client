@@ -4,11 +4,13 @@ import { CreateShortUrlComponent } from './component/create-short-url/create-sho
 import { UrlsComponent } from './component/urls/urls.component';
 import { LoginComponent } from './component/login/login.component';
 import { RedirectComponent } from './component/redirect/redirect.component';
+import { GroupComponent } from './component/group/group.component';
 const routes: Routes = [
   { path: 'createShortUrl', component: CreateShortUrlComponent },
   { path: 'urls', component: UrlsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'redirect', component: RedirectComponent },
+  { path: 'group', component: GroupComponent },
   { path: '**', component: LoginComponent }
 ];
 

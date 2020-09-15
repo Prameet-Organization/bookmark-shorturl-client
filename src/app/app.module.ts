@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 import { UrlService } from './service/url.service';
 import { UrlsComponent } from './component/urls/urls.component';
@@ -32,6 +33,9 @@ import { AuthService } from './service/auth.service';
 import { LoginComponent } from './component/login/login.component';
 import { RedirectComponent } from './component/redirect/redirect.component';
 import { LocalStorageService } from './service/local-storage.service';
+import { GroupComponent } from './component/group/group.component';
+import { GroupFormComponent } from './component/group-form/group-form.component';
+import { GroupService } from './service/group.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +47,9 @@ import { LocalStorageService } from './service/local-storage.service';
     ShortUrlFormComponent,
     ShortUrlDisplayComponent,
     LoginComponent,
-    RedirectComponent
+    RedirectComponent,
+    GroupComponent,
+    GroupFormComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +72,7 @@ import { LocalStorageService } from './service/local-storage.service';
     ClipboardModule,
     MatButtonModule,
     MatDialogModule,
+    MatSelectModule,
     ReactiveFormsModule
   ],
   providers: [
@@ -78,7 +85,8 @@ import { LocalStorageService } from './service/local-storage.service';
     },
     JwtTokenService,
     AuthService,
-    LocalStorageService
+    LocalStorageService,
+    GroupService
   ],
   bootstrap: [AppComponent]
 })
