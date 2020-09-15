@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,7 +26,12 @@ import { ImageFormatterComponent } from './component/image-formatter/image-forma
 import { UrlActionComponent } from './component/url-action/url-action.component';
 import { ShortUrlFormComponent } from './component/short-url-form/short-url-form.component';
 import { ShortUrlDisplayComponent } from './component/short-url-display/short-url-display.component';
-
+import { TokenInterceptor } from './service/token.interceptor';
+import { JwtTokenService } from './service/jwt-token.service';
+import { AuthService } from './service/auth.service';
+import { LoginComponent } from './component/login/login.component';
+import { RedirectComponent } from './component/redirect/redirect.component';
+import { LocalStorageService } from './service/local-storage.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +41,9 @@ import { ShortUrlDisplayComponent } from './component/short-url-display/short-ur
     ImageFormatterComponent,
     UrlActionComponent,
     ShortUrlFormComponent,
-    ShortUrlDisplayComponent
+    ShortUrlDisplayComponent,
+    LoginComponent,
+    RedirectComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +70,15 @@ import { ShortUrlDisplayComponent } from './component/short-url-display/short-ur
   ],
   providers: [
     UrlService,
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    JwtTokenService,
+    AuthService,
+    LocalStorageService
   ],
   bootstrap: [AppComponent]
 })

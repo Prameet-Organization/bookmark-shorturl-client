@@ -3,6 +3,7 @@ import { UrlService } from 'src/app/service/url.service';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ImageFormatterComponent } from '../image-formatter/image-formatter.component';
 import { UrlActionComponent } from '../url-action/url-action.component';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-urls',
@@ -37,9 +38,11 @@ export class UrlsComponent implements OnInit {
 
   rowData = [];
 
-  constructor(private urlService: UrlService) { }
+  constructor(private urlService: UrlService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.getUser();
     this.urlService.urls$.subscribe(res => {
       this.rowData = res;
       if (this.agGrid){

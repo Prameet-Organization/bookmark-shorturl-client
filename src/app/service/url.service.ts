@@ -4,12 +4,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { AppError } from '../model/error';
 import { UrlDetails } from '../model/url-details';
-
+import { API_BASE_URL } from '../constant/index';
 @Injectable({
   providedIn: 'root'
 })
 export class UrlService {
-  private baseUrls = 'http://localhost:8080/api/v1/';
+  private baseUrls = `${API_BASE_URL}/api/v1/`;
   private shortUrl = new BehaviorSubject<string>(null);
   shortUrl$: Observable<string> = this.shortUrl.asObservable();
 
