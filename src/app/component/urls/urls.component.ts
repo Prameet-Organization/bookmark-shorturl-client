@@ -20,14 +20,15 @@ export class UrlsComponent implements OnInit {
     cellRendererFramework: ImageFormatterComponent
   },
     { headerName: 'Short Title', field: 'shortTitle', maxWidth: 150,
-            cellStyle: { 'white-space': 'normal'}, autoHeight: true },
+            cellClass: 'custom-wrap', autoHeight: true },
     { headerName: 'Description', field: 'description', maxWidth: 300,
-            cellStyle: { 'white-space': 'normal'}, autoHeight: true  },
+            cellClass: 'custom-wrap', autoHeight: true  },
     { headerName: 'Short Url', field: 'shortUrl', maxWidth: 200,
-            cellStyle: { 'white-space': 'normal', 'overflow-wrap': 'break-word'}, autoHeight: true },
-    { headerName: 'Long Url', field: 'longUrl', maxWidth: 300, cellStyle: { 'white-space': 'normal' }, autoHeight: true},
+            cellClass: 'custom-wrap', autoHeight: true },
+    { headerName: 'Long Url', field: 'longUrl', maxWidth: 300,
+            cellClass: 'custom-wrap', autoHeight: true},
     { headerName: 'Expiration Date & Time', field: 'expirationDateTime',
-            cellStyle: { 'white-space': 'normal'}, autoHeight: true },
+            cellClass: 'custom-wrap', autoHeight: true },
     { headerName: 'Action',
     maxWidth: 100,
     sortable: false,
@@ -50,6 +51,10 @@ export class UrlsComponent implements OnInit {
       }
     });
     this.urlService.getUrls();
+  }
+
+  quickSearch(event): void{
+    this.agGrid.api.setQuickFilter(event.target.value);
   }
 
 }

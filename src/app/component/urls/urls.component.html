@@ -1,5 +1,13 @@
 <div class="container">
     <br/>
+    <div class="row">
+        <div>
+            <mat-form-field class="container-fluid" appearance="fill">
+                <mat-label>Quick Search</mat-label>
+                <input matInput (keyup)="quickSearch($event)" type="text">
+            </mat-form-field>
+        </div>
+    </div>
     <ag-grid-angular 
         #agGrid
         style="height: 500px;"

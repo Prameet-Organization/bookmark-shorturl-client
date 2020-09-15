@@ -5,7 +5,7 @@
             <mat-form-field class="container-fluid" appearance="fill">
                 <mat-label>Enter Long Url</mat-label>
                 <textarea matInput [formControl]="longUrl" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                    cdkAutosizeMinRows="4">
+                    cdkAutosizeMinRows="4" [readonly]="data">
                 </textarea>
                 <mat-error *ngIf="longUrl.invalid">{{ errorMessage }}</mat-error>
             </mat-form-field>
