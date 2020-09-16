@@ -1,4 +1,6 @@
 export interface Group{
-    groupType: string;
-    groupName: string;
+    id?: number;
+    groupType?: string;
+    groupName?: string;
+    tribe?: Group;
 }

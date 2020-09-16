@@ -11,6 +11,12 @@ import { AppError } from '../model/error';
 export class GroupService {
   private baseUrls = `${API_BASE_URL}/api/v1/`;
 
+  private tribes = new BehaviorSubject<Array<Group>>(null);
+  tribe$: Observable<Array<Group>> = this.tribes.asObservable();
+
+  private groups = new BehaviorSubject<Array<Group>>(null);
+  groups$: Observable<Array<Group>> = this.groups.asObservable();
+
   private appError = new BehaviorSubject<AppError>(null);
   error$: Observable<AppError> = this.appError.asObservable();
 
@@ -20,6 +26,28 @@ export class GroupService {
     this.http.post<any>(`${this.baseUrls}groups`, group)
     .subscribe(res => {
       console.log(res);
+    },
+    (error: HttpErrorResponse) => {
+      this.appError.next ({ errorMessage: error.error.error });
+    });
+  }
+
+  getTribes(): void{
+    this.http.get<any>(`${this.baseUrls}groups?type=tribe`)
+    .subscribe(res => {
+      console.log(res);
+      this.tribes.next(res);
+    },
+    (error: HttpErrorResponse) => {
+      this.appError.next ({ errorMessage: error.error.error });
+    });
+  }
+
+  getGroups(): void{
+    this.http.get<any>(`${this.baseUrls}groups`)
+    .subscribe(res => {
+      console.log(res);
+      this.groups.next(res);
     },
     (error: HttpErrorResponse) => {
       this.appError.next ({ errorMessage: error.error.error });

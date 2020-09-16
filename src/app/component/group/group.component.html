@@ -1,4 +1,22 @@
 <div class="container">
     <br/>
     <app-group-form></app-group-form>
+    <div class="row">
+        <div>
+            <mat-form-field class="container-fluid" appearance="fill">
+                <mat-label>Quick Search</mat-label>
+                <input matInput (keyup)="quickSearch($event)" type="text">
+            </mat-form-field>
+        </div>
+    </div>
+    <ag-grid-angular 
+    #agGrid
+    style="height: 500px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [pagination]="true"
+    [enableCellTextSelection]="true"
+    [rowHeight]="100">
+</ag-grid-angular>
 </div>

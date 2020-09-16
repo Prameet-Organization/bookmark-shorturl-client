@@ -1,5 +1,7 @@
 <div class="container">
-
+    <div class="alert alert-danger" role="alert" *ngIf='inValid'>
+        {{inValidMessage}}
+    </div>
     <div class="row">
         <div class="col-md-3">
             <mat-form-field appearance="fill">
@@ -16,12 +18,11 @@
                 <input matInput [formControl]="name">
             </mat-form-field>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" *ngIf="type.value === 'feature'">
             <mat-form-field appearance="fill">
                 <mat-label>Select tribe</mat-label>
                 <mat-select [formControl]="tribe">
-                    <mat-option value="tribe">Tribe</mat-option>
-                    <mat-option value="feature">Feature Team</mat-option>
+                    <mat-option [value]="group.id" *ngFor="let group of tribes$ | async" >{{group.groupName}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
