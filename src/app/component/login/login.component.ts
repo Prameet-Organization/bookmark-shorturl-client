@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void{
     if (this.authService.isAuthorized()){
-      this.router.navigate(['group']);
+      this.router.navigate(['team']);
     }
   }
 

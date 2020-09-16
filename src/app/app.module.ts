@@ -36,6 +36,12 @@ import { LocalStorageService } from './service/local-storage.service';
 import { GroupComponent } from './component/group/group.component';
 import { GroupFormComponent } from './component/group-form/group-form.component';
 import { GroupService } from './service/group.service';
+import { TeamComponent } from './component/team/team.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { UserService } from './service/user.service';
+import { UtilService } from './service/util.service';
+import { AddUrlFormComponent } from './component/add-url-form/add-url-form.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +55,9 @@ import { GroupService } from './service/group.service';
     LoginComponent,
     RedirectComponent,
     GroupComponent,
-    GroupFormComponent
+    GroupFormComponent,
+    TeamComponent,
+    AddUrlFormComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +81,8 @@ import { GroupService } from './service/group.service';
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatAutocompleteModule
   ],
   providers: [
     UrlService,
@@ -86,7 +95,9 @@ import { GroupService } from './service/group.service';
     JwtTokenService,
     AuthService,
     LocalStorageService,
-    GroupService
+    GroupService,
+    UserService,
+    UtilService
   ],
   bootstrap: [AppComponent]
 })

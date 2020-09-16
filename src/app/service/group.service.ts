@@ -9,6 +9,7 @@ import { AppError } from '../model/error';
   providedIn: 'root'
 })
 export class GroupService {
+
   private baseUrls = `${API_BASE_URL}/api/v1/`;
 
   private tribes = new BehaviorSubject<Array<Group>>(null);
@@ -48,6 +49,35 @@ export class GroupService {
     .subscribe(res => {
       console.log(res);
       this.groups.next(res);
+    },
+    (error: HttpErrorResponse) => {
+      this.appError.next ({ errorMessage: error.error.error });
+    });
+  }
+
+  searchGroups(name: string): void{
+    this.http.get<any>(`${this.baseUrls}groups?name=${name}`)
+    .subscribe(res => {
+      console.log(res);
+      this.groups.next(res);
+    },
+    (error: HttpErrorResponse) => {
+      this.appError.next ({ errorMessage: error.error.error });
+    });
+  }
+
+  addUserToGroup(groupName: any, userName: any): void{
+    this.http.post(`${this.baseUrls}groups/${groupName}`, { username : userName}).subscribe(res => {
+      console.log(res);
+    },
+    (error: HttpErrorResponse) => {
+      this.appError.next ({ errorMessage: error.error.error });
+    });
+  }
+
+  addUrlToGroup(groupName: string, shortUrl: string): void{
+    this.http.post(`${this.baseUrls}groups/${groupName}`, { shortUrl }).subscribe(res => {
+      console.log(res);
     },
     (error: HttpErrorResponse) => {
       this.appError.next ({ errorMessage: error.error.error });

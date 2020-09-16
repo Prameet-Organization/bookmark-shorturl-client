@@ -30,9 +30,10 @@ export class UrlsComponent implements OnInit {
     { headerName: 'Expiration Date & Time', field: 'expirationDateTime',
             cellClass: 'custom-wrap', autoHeight: true },
     { headerName: 'Action',
-    maxWidth: 100,
+    maxWidth: 120,
     sortable: false,
     autoHeight: true,
+    cellClass: 'custom-wrap',
     cellRendererFramework: UrlActionComponent
   },
   ];

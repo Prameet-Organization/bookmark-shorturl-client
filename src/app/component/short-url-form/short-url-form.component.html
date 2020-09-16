@@ -23,7 +23,7 @@
         <div *ngIf='data' [ngClass]="{' col-md-10': !data, ' col-md-12': data}">
             <mat-form-field class="container-fluid" appearance="fill">
                 <mat-label>Short Url</mat-label>
-                <input matInput [formControl]="shortUrl" type="text">
+                <input matInput [formControl]="shortUrl" type="text" [readonly]="data">
             </mat-form-field>
         </div>
     </div>

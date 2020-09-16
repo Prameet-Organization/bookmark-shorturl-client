@@ -4,6 +4,7 @@ import { GroupService } from '../../service/group.service';
 import { Group } from '../../model/group';
 import { Observable } from 'rxjs';
 import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
+import { UtilService } from 'src/app/service/util.service';
 
 @Component({
   selector: 'app-group-form',
@@ -18,18 +19,19 @@ export class GroupFormComponent implements OnInit {
   tribes$ = this.groupService.tribe$;
   inValid = false;
   inValidMessage = '';
-  constructor(private groupService: GroupService) { }
+  constructor(private groupService: GroupService,
+              private utilService: UtilService) { }
 
   ngOnInit(): void {
     this.groupService.getTribes();
   }
 
   validate(): boolean{
-    if (this.isEmpty(this.type.value) || this.isEmpty(this.name.value)){
+    if (this.utilService.isEmpty(this.type.value) || this.utilService.isEmpty(this.name.value)){
       this.setInvalidMessage(true, 'Type and Name are mandatory fields');
       return false;
     }
-    if (this.type.value === 'feature' && this.isEmpty(this.tribe.value)){
+    if (this.type.value === 'feature' && this.utilService.isEmpty(this.tribe.value)){
       this.setInvalidMessage(true, 'Tribe is mandatory fields');
       return false;
     }
@@ -40,13 +42,6 @@ export class GroupFormComponent implements OnInit {
   setInvalidMessage(flag: boolean, message: string): void {
     this.inValid = flag;
     this.inValidMessage = message;
-  }
-
-  isEmpty(value: string): boolean {
-    if (value === null || value === undefined || value ===  ''){
-      return true;
-    }
-    return false;
   }
 
   create(): void{
