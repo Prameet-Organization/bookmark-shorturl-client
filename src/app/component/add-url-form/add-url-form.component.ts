@@ -1,8 +1,10 @@
-import { Component, OnInit, Injector } from '@angular/core';
-import { GroupService } from 'src/app/service/group.service';
-import { UtilService } from 'src/app/service/util.service';
+import { Component, OnInit, Inject } from '@angular/core';
+import { GroupService } from '../../service/group.service';
+import { UtilService } from '../../service/util.service';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UrlService } from '../../service/url.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-url-form',
@@ -13,21 +15,25 @@ export class AddUrlFormComponent implements OnInit {
 
   groupname = new FormControl('');
 
-  groups$ = this.groupService.groups$;
+  groups$: Observable<any>;
   inValid = false;
   inValidMessage = '';
-  data: any;
   shortUrl = new FormControl('');
-  public dialogRef: MatDialogRef<any>;
 
   constructor(private groupService: GroupService,
               private utilService: UtilService,
-              private injector: Injector) {
-    this.data = this.injector.get(MAT_DIALOG_DATA, null);
-    this.dialogRef = this.injector.get(MatDialogRef, null);
+              private urlService: UrlService,
+              private dialogRef: MatDialogRef<AddUrlFormComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit(): void {
+    this.groups$ = this.groupService.groups$;
+    this.groupService.urlAdded$.subscribe(flag => {
+      if (flag && this.dialogRef){
+        this.cancel();
+      }
+    });
     if (!!this.data){
       if (!!this.data.fieldData.shortUrl){
         this.shortUrl.setValue(this.data.fieldData.shortUrl);
@@ -51,7 +57,7 @@ export class AddUrlFormComponent implements OnInit {
   add(): void{
     if (this.validate()){
       this.groupService.addUrlToGroup(this.groupname.value, this.shortUrl.value);
-      this.close();
+      this.urlService.getUrls();
     }
   }
 
@@ -60,8 +66,10 @@ export class AddUrlFormComponent implements OnInit {
     this.inValidMessage = message;
   }
 
-  close(): void{
-    this.dialogRef.close();
+  cancel(): void{
+    if (this.dialogRef){
+      this.dialogRef.close();
+    }
   }
 
 }

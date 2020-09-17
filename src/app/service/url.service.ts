@@ -80,4 +80,8 @@ export class UrlService {
   private getPathName(urlString: string): string{
     return urlString.substring(urlString.lastIndexOf('/') + 1);
   }
+
+  public setShortUrl(): void{
+    this.shortUrl.next(null);
+  }
 }

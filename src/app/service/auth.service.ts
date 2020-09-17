@@ -21,7 +21,6 @@ export class AuthService {
 
   getUser(): void{
     this.http.get<string>(`${this.baseUrls}/auth/user`).subscribe(res => {
-      console.log('======>' + res);
       this.user.next(res);
     },
     (error: HttpErrorResponse) => {

@@ -2,6 +2,12 @@
     <div class="alert alert-danger" role="alert" *ngIf='inValid'>
         {{inValidMessage}}
     </div>
+    <div class="alert alert-success" role="alert" *ngIf='createdFlag$ | async'>
+        Added Successfully
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf='error$ | async'>
+        System Error
+    </div>
     <div class="row">
         <div class="col-md-3">
             <mat-form-field appearance="fill">

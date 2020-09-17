@@ -41,6 +41,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { UserService } from './service/user.service';
 import { UtilService } from './service/util.service';
 import { AddUrlFormComponent } from './component/add-url-form/add-url-form.component';
+import { AuthGuardService } from './service/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { AddUrlFormComponent } from './component/add-url-form/add-url-form.compo
     LocalStorageService,
     GroupService,
     UserService,
-    UtilService
+    UtilService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

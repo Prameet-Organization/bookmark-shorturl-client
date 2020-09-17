@@ -19,6 +19,8 @@ export class TeamComponent implements OnInit {
   inValid = false;
   inValidMessage = '';
 
+  addedUser$ = this.groupService.addedUser$;
+
   constructor(private userService: UserService,
               private groupService: GroupService,
               private utilService: UtilService) { }

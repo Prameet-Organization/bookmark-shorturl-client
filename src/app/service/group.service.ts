@@ -21,12 +21,23 @@ export class GroupService {
   private appError = new BehaviorSubject<AppError>(null);
   error$: Observable<AppError> = this.appError.asObservable();
 
+  private createdFlag = new BehaviorSubject<boolean>(null);
+  createdFlag$: Observable<boolean> = this.createdFlag.asObservable();
+
+  private addedUser = new BehaviorSubject<boolean>(null);
+  addedUser$: Observable<boolean> = this.addedUser.asObservable();
+
+  private urlAdded = new BehaviorSubject<boolean>(null);
+  urlAdded$: Observable<boolean> = this.urlAdded.asObservable();
+
   constructor(private http: HttpClient) { }
 
   create(group: Group): void{
+    this.appError.next(null);
+    this.createdFlag.next(false);
     this.http.post<any>(`${this.baseUrls}groups`, group)
     .subscribe(res => {
-      console.log(res);
+      this.createdFlag.next(true);
     },
     (error: HttpErrorResponse) => {
       this.appError.next ({ errorMessage: error.error.error });
@@ -36,7 +47,6 @@ export class GroupService {
   getTribes(): void{
     this.http.get<any>(`${this.baseUrls}groups?type=tribe`)
     .subscribe(res => {
-      console.log(res);
       this.tribes.next(res);
     },
     (error: HttpErrorResponse) => {
@@ -47,7 +57,6 @@ export class GroupService {
   getGroups(): void{
     this.http.get<any>(`${this.baseUrls}groups`)
     .subscribe(res => {
-      console.log(res);
       this.groups.next(res);
     },
     (error: HttpErrorResponse) => {
@@ -67,8 +76,9 @@ export class GroupService {
   }
 
   addUserToGroup(groupName: any, userName: any): void{
+    this.addedUser.next(false);
     this.http.post(`${this.baseUrls}groups/${groupName}`, { username : userName}).subscribe(res => {
-      console.log(res);
+      this.addedUser.next(true);
     },
     (error: HttpErrorResponse) => {
       this.appError.next ({ errorMessage: error.error.error });
@@ -77,10 +87,14 @@ export class GroupService {
 
   addUrlToGroup(groupName: string, shortUrl: string): void{
     this.http.post(`${this.baseUrls}groups/${groupName}`, { shortUrl }).subscribe(res => {
-      console.log(res);
+      this.urlAdded.next(true);
     },
     (error: HttpErrorResponse) => {
       this.appError.next ({ errorMessage: error.error.error });
     });
+  }
+
+  resetCreatedFlag(): void{
+    this.createdFlag.next(false);
   }
 }

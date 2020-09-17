@@ -16,14 +16,28 @@ export class GroupFormComponent implements OnInit {
   type = new FormControl('');
   name = new FormControl('');
   tribe = new FormControl('');
-  tribes$ = this.groupService.tribe$;
+  tribes$: Observable<any>;
+  createdFlag$: Observable<any>;
+  error$: Observable<any>;
   inValid = false;
   inValidMessage = '';
+
   constructor(private groupService: GroupService,
               private utilService: UtilService) { }
 
   ngOnInit(): void {
+    this.tribes$ = this.groupService.tribe$;
+    this.createdFlag$ = this.groupService.createdFlag$;
+    this.error$ = this.groupService.error$;
+
     this.groupService.getTribes();
+    this.createdFlag$.subscribe( flag => {
+      if (flag){
+        this.reset();
+        this.groupService.getTribes();
+        this.groupService.getGroups();
+      }
+    });
   }
 
   validate(): boolean{
@@ -54,9 +68,13 @@ export class GroupFormComponent implements OnInit {
     }
     if (this.validate()) {
       this.groupService.create(group);
-      this.groupService.getTribes();
-      this.groupService.getGroups();
     }
+  }
+
+  reset(): void{
+    this.type.setValue('');
+    this.name.setValue('');
+    this.tribe.setValue('');
   }
 
 }

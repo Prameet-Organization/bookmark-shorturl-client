@@ -9,16 +9,17 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit{
   title = 'app-title';
-  user$ = this.authService.user$;
+  user: any;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void{
+    this.authService.user$.subscribe(u => this.user = u);
     this.authService.getUser();
   }
 
   logout(): void{
     this.authService.logout();
-    this.router.navigate(['login']);
+    window.setTimeout(() => this.router.navigate(['login']), 0);
   }
 }

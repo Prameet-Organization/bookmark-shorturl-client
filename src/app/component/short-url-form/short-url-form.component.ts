@@ -1,11 +1,10 @@
 import { Component, OnInit, NgZone, ViewChild, Inject, Injector } from '@angular/core';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/operators';
-import { UrlService } from 'src/app/service/url.service';
+import { UrlService } from '../../service/url.service';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-short-url-form',
@@ -21,18 +20,16 @@ export class ShortUrlFormComponent implements OnInit {
   errorMessage: string;
   favicon: File;
   faviconUrl: any;
-  data: any;
   shortUrl = new FormControl('');
-  public dialogRef: MatDialogRef<any>;
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   constructor(private ngZone: NgZone, private urlService: UrlService,
               private sanitizer: DomSanitizer,
-              private injector: Injector
+              private injector: Injector,
+              private dialogRef: MatDialogRef<ShortUrlFormComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-      this.data = this.injector.get(MAT_DIALOG_DATA, null);
-      this.dialogRef = this.injector.get(MatDialogRef, null);
    }
 
   triggerResize(): void {
@@ -108,6 +105,15 @@ export class ShortUrlFormComponent implements OnInit {
 
   cancel(): void{
     this.dialogRef.close();
+  }
+
+  reset(): void{
+    this.longUrl.setValue('');
+    this.expirationDateTime.setValue('');
+    this.shortTitle.setValue('');
+    this.description.setValue('');
+    this.shortUrl.setValue('');
+    this.urlService.setShortUrl();
   }
 }
 

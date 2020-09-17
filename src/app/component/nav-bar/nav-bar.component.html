@@ -7,23 +7,23 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li  *ngIf="user$ | async" class="nav-item active">
+            <li  *ngIf="user" class="nav-item active">
                 <a class="nav-link" href="urls">Urls</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="createShortUrl">Create Short Url</a>
             </li>
-            <li *ngIf="user$ | async" class="nav-item">
+            <li *ngIf="user" class="nav-item">
                 <a class="nav-link" href="group">Group</a>
             </li>
-            <li *ngIf="user$ | async" class="nav-item">
+            <li *ngIf="user" class="nav-item">
                 <a class="nav-link" href="team">Team</a>
             </li>
             
         </ul>
-        <div *ngIf="user$ | async as user"class="float-right">
+        <div *ngIf="user"class="float-right">
             <div>
-                <mat-icon aria-hidden="false" aria-label="person" inline="true">person</mat-icon> {{user?.name}}&nbsp;
+                <mat-icon aria-hidden="false" aria-label="person" inline="true">person</mat-icon> {{user.name}}&nbsp;
                 <a (click)="logout()" role="button"><mat-icon aria-hidden="false" aria-label="person" inline="true" >logout</mat-icon></a>
             </div>
         </div>
