@@ -9,10 +9,10 @@ import { TeamComponent } from './component/team/team.component';
 import { AuthGuardService } from './service/auth-guard.service';
 const routes: Routes = [
   { path: 'createShortUrl', component: CreateShortUrlComponent },
-  { path: 'urls', component: UrlsComponent },
+  { path: 'urls', component: UrlsComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   { path: 'redirect', component: RedirectComponent },
-  { path: 'group', component: GroupComponent },
+  { path: 'group', component: GroupComponent,  canActivate: [AuthGuardService]},
   { path: 'team', component: TeamComponent, canActivate: [AuthGuardService]  },
   { path: '**', component: LoginComponent }
 ];
