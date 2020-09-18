@@ -1,27 +1,38 @@
-# BookmarkShorturlClient
+# Bookmark and short url
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.6.
+By this application we can create shorturls and share them within teams.
 
-## Development server
+## Software required:
+  - Java 11
+  - Node Js
+  - Maven
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Modules: (latest in master)
+    Backend: https://github.com/prameetpradhan/bookmark-shorturl-service
+    Frontend: https://github.com/prameetpradhan/bookmark-shorturl-client
+    
+## Run modules
+### Backend
+    - Create github app for oauth2 authenticationa and put client id and secret in application.yml file
+    - Please update below property with correct path of your system.
+        spring:
+    datasource:
+        url: jdbc:h2:file:/home/prameet/testDb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+    - mvn clean install
+    - java -jar target/bookmark-shorturl-service-0.0.1-SNAPSHOT.jar
+    
+### Frontend
+    - npm install
+    - ng serve
+    
+# How to use:
+- launch application : http://localhost:4200
+- Click on log in with github button
+- There are 4 tabs
+- Group: For creation of tribe and feature team
+- Team: To add a user to a group (once user login to this app, they will get added into system and we can then add them to some group)
+- Create Short Url: To create short urls
+- Urls: To view urls
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Swagger url
+http://localhost:8080/swagger-ui.html
